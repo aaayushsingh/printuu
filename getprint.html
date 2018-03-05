@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Printuu</title>
+	<!-- For-Mobile-Apps -->
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="keywords" content="Lucid Login Form Widget Responsive, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design"
+	/>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+	<script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+	<style type="text/css">
+		#dumber {
+			height: 100%;
+			font-size: 200%;
+			color: #f2f2f2;
+			text-align: center;
+			padding-top: 5px;
+		}
+
+		#show_em {
+			color: #f2f2f2;
+			font-size: 100%;
+			text-align: center;
+			padding-top: 2px;
+		}
+
+		#go_em {
+			color: #f2f2f2;
+			font-size: 100%;
+			text-align: center;
+			padding-top: 2px;
+
+		}
+
+		#jumbo {
+			color: #f2f2f2;
+			font-size: 100%;
+			text-align: center;
+		}
+
+		#loader {
+			position: relative;
+			left: 40%;
+		}
+	</style>
+	<!-- //For-Mobile-Apps -->
+	<!-- Style -->
+	<link rel="stylesheet" href="style.css" type="text/css" media="all" />
+</head>
+
+<body>
+
+
+
+	<div class="container">
+		<h1>
+			<img src="qp2.png">
+		</h1>
+		<!--adding side bar -->
+		<div id="mySidenav" class="sidenav">
+			<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+			<a href="/">Upload</a>
+			<a href="/printme">Print</a>
+			<a href="/feedback">Feedback</a>
+			<a href="/faq">FAQ's</a>
+		</div>
+		<div class="signin">
+			<div class="page" align="center">
+				<ul class="nav-pill style-default">
+					<li>
+						<a href="javascript:void(0)" onclick="openNav()">&#9776;Menu</a>
+					</li>
+					<li>
+						<a href="/">Upload</a>
+					</li>
+					<li class="active">
+						<a href="/printme">Print</a>
+					</li>
+
+				</ul>
+			</div>
+			<br/>
+			<input type="text" id="email" class="user" value='' placeholder="Your Token number.." "onblur="if (this.value=='' ) {this.value='Full Name*'
+			 ;} " / required>
+
+
+					<input type="submit " onclick="exec() " id="trm " value="Printuu karo! "  />
+					<div id="show_em "></div>
+					<div id="go_em "></div>
+                     <img src="default.svg " id="loader " />
+
+
+	</div>
+</div>
+<div class="footer ">
+     <p>Copyright &copy; Printuu All Rights Reserved |</p>
+		 <p>Contact: printuu.info@gmail.com </p>
+</div>
+
+<script>
+	$('#loader').hide();
+	var cl = window.location.toString();
+	var re = cl.split("?=");
+	$(" #email ").attr("value ", re[1]);
+
+
+	function exec() {
+		var token = document.getElementById('email').value;
+		if (1000 < token && token <= 9999 && token.match(/^[0-9]+$/) != null) {
+			$('#loader').show();
+			$("#show_em ").hide();
+			$("#go_em ").hide();
+			console.log(token);
+			//sendMessage(token);
+			//the function to send request is called in here
+			hitit(token, peas);
+		} else return alert('Enter 4 digit NUMERIC token!');
+	}
+
+
+	function hitit(data, callback) {
+		var xhr = new XMLHttpRequest();
+		xhr.open('POST', `/sendprint`);
+		xhr.setRequestHeader("Content-type ", "application/x-www-form-urlencoded ");
+		xhr.send("token=" + data);
+		xhr.onreadystatechange = () => {
+			if (xhr.readyState === 4) {
+				if (xhr.status === 200) {
+					console.log(" Finally reliable response received ");
+					//var response = JSON.parse(xhr.responseText);
+					//console.log(xhr.responseText);
+					//data has been received here along with the token response.token
+
+					callback(JSON.parse(xhr.responseText));
+				}
+				else {
+					console.log("Response failed ");
+				}
+			}
+		};
+	}
+
+	function openPopUp(urlToOpen) {
+		var popup_window = window.open(urlToOpen, "p_check ", "toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no,
+			 resizable = no, copyhistory = yes, width = 0, height = 0 ");            
+  try {
+			popup_window.focus();
+			popup_window.close();
+			return true;
+		}
+		catch (e) {
+			alert("Pop-up Blocker is enabled! Please add this site to your exception list. \n\nSee our FAQ section on how to unblock
+			 popups. ");
+	return false;
+		}
+		return false;
+	}
+
+	function peas(field) {
+		//this function is called on receiveing the response
+		console.log(field);
+		$('#loader').hide();
+		$("#show_em ").show();
+		$("#go_em ").show();
+		if (openPopUp("http://www.printuu.com ")) {
+			$("#show_em ").text(field.message);
+			//$("#go_em ").text("P.S: Make sure that the popups have been unblocked. ");
+			if (field.url != null) {
+
+				window.open(field.url, '_blank');
+			}
+
+
+		} else {
+			$("#go_em ").text("Make sure that the popups have been unblocked and then try again. ");
+		}
+
+
+
+
+	}
+
+	//SIDEBAR STARts (pb)
+
+	function openNav() {
+		document.getElementById("mySidenav ").style.width = "250px ";
+		document.getElementById("main ").style.marginLeft = "250px ";
+		document.body.style.backgroundColor = "rgba(0,0,0,0.4) ";
+	}
+
+	function closeNav() {
+		document.getElementById("mySidenav ").style.width = "0 ";
+		document.getElementById("main ").style.marginLeft = "0 ";
+		document.body.style.backgroundColor = "white ";
+	}
+//SIDEBAR ENds (pb)
+
+
+
+
+
+</script>
+</body>
+</html>

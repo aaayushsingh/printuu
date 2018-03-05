@@ -1,0 +1,329 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+<head>
+    <title>Printuu</title>
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <!-- For-Mobile-Apps -->
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="keywords" content="Lucid Login Form Widget Responsive, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design"
+    />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- //For-Mobile-Apps -->
+    <!-- Style -->
+    <link rel="stylesheet" href="style.css" type="text/css" media="all" />
+    <style type="text/css">
+        #dumber {
+            height: 100%;
+            font-size: 200%;
+            color: #f2f2f2;
+            text-align: center;
+            padding-top: 2px;
+        }
+
+        #kliber {
+            color: #f2f2f2;
+            font-size: 100%;
+            text-align: center;
+        }
+
+        #jumbo {
+            color: #f2f2f2;
+            font-size: 100%;
+            text-align: center;
+        }
+
+        #loader {
+            position: relative;
+            left: 40%;
+        }
+
+        #info {
+            position: relative;
+            left: 7px;
+            top: 5px;
+        }
+
+        #app_pic {
+            position: relative;
+
+            top: 5px;
+        }
+
+        .modal-header {
+            padding: 2px 16px;
+            background-color: #99ccff;
+            color: black;
+
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <div class="container">
+        <h1>
+            <img src="qp2.png" alt="Printuu">
+        </h1>
+        <!--adding side bar -->
+        <div id="mySidenav" class="sidenav">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <a href="/">Upload</a>
+            <a href="/printme">Print</a>
+            <a href="/feedback">Feedback</a>
+            <a href="/faq">FAQ's</a>
+        </div>
+        <!-- just for some time >
+  <div id="main"align="center" class="menu">
+    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9758; Menu</span>
+  </div>
+  <!- -adding side bar -->
+
+
+        <div class="signin">
+            <div class="page" align="center">
+                <ul class="nav-pill style-default">
+                    <li>
+                        <a href="javascript:void(0)" onclick="openNav()">&#9776;Menu</a>
+                    </li>
+                    <li class="active">
+                        <a href="/">Upload</a>
+                    </li>
+                    <li>
+                        <a href="/printme">Print</a>
+                    </li>
+
+                </ul>
+            </div>
+
+            <input type="text" id="pname" class="user" placeholder="Full Name*" / required>
+            <input type="email" id="pemail" class="email" placeholder="E-mail*" / required>
+            <input type="file" id="file-input" class="file" name="print" onchange="alerter()" accept="application/msword,text/html,text/plain,application/msexcel,application/pdf,image/tiff,image/jpeg,image/x-png,image/x-portable-pixmap,image/x-photo-cd,image/jpg,image/bmp,image/png"
+                required>
+            <input type="submit" id="trm" value="Upload" onclick="bunny()" />
+            <div id="forsapp">
+                <span id="dumber" hidden></span>
+                <a id="info" hidden>
+                    <img src="info.png" alt="Info" />
+                </a>
+                <a id="app_pic" hidden>
+                    <img src="wassup.png" alt="Share on WhatsApp" align="right" />
+                </a>
+
+            </div>
+            <div id="jumbo" hidden></div>
+
+
+
+
+            <!-- The Modal -->
+            <div id="myModal" class="modal">
+
+                <!-- Modal content -->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <span class="close">&times;</span>
+                        <br />
+                        <h2 id="why_info">What should I do with this token number?</h2>
+                        <br />
+
+                        <p>To use this token, go to a printer shop (or at any printer) and...
+                            <br />
+                            <br />
+                            <li>Simply, enter this token number in the print section of the website</li>
+                            <br/>
+                            <li>Your uploaded document will be generated, ready for printing</li>
+                        </p>
+                        <br />
+                        <br />
+                        <h3 align="center">Printuu karo !!</h3>
+                        <br />
+
+
+                    </div>
+
+
+                </div>
+
+            </div>
+
+            <img src="default.svg" id="loader" alt="Loading..." hidden />
+        </div>
+    </div>
+
+
+    <div class="footer">
+        <article class="popup" align="center">
+            About
+            <aside>we save you the hassle of opening your email everytime you need to print something!! All you need to do is upload
+                and then..printuu karo!</aside>
+        </article>
+        <p>Copyright &copy; Printuu All Rights Reserved |</p>
+        <p>Contact: printuu.info@gmail.com </p>
+    </div>
+    <script>
+        //$("#app_pic").removeAttr("hidden");
+        //$('#loader').hide();
+        //$('#dumber').hide();
+        //$('#jumbo').hide();
+        //$('#kliber').hide();
+        //$("#app_pic").attr("hidden","true");
+
+        function alerter() {
+            const files = document.getElementById('file-input').files;
+            const file = files[0];
+            if (files[0].size > 20971520) {
+                return alert('File exceeds the 20 Mb size limit. Please try again.');
+            }
+        }
+
+
+        function bunny() {
+            var name = document.getElementById('pname').value;
+            var mail = document.getElementById('pemail').value;
+
+            //var mail_dom= mail.split("@")
+            const files = document.getElementById('file-input').files;
+            const file = files[0];
+  /*  if (files[0].size>){
+        return alert('bhai kitni badi file upload kregaa?? 20MB limit hai.');
+    } else */if (!mail.includes("@") || !mail.includes(".")) {
+                return alert('invalid email');
+            } else if (file == null) {
+                return alert('Please select a file.');
+            } else if (name == '') {
+                return alert('Invalid name or email.');
+            } else if (files[0].size > 20971520) {
+                return alert('select another file');
+            }
+            else {
+
+                getSignedRequest(file, name, mail);
+                $('#trm').prop("disabled", true);
+                $('#loader').removeAttr("hidden");
+                //$('#loader').show();
+            }
+
+        }
+
+        function getSignedRequest(file, name, mail) {
+            const xhr = new XMLHttpRequest();
+            xhr.open('POST', `/todest?file-name=${file.name}&file-type=${file.type}&name=${name}&mail=${mail}`);
+            xhr.onreadystatechange = () => {
+
+                if (xhr.readyState === 4) {
+                    if (xhr.status === 200) {
+                        console.log("Response received");
+                        console.log(xhr.responseText);
+                        const response = JSON.parse(xhr.responseText);
+
+                        //data has been received here along with the token response.token
+                        uploadFile(file, response.signedRequest, response.url, response.token, response.file);
+                    }
+                    else {
+                        console.log("Bad Response received");
+                        $('#loader').attr("hidden", true);
+                        //$('#loader').hide();
+                        $("#jumbo").text("Sorry, The file failed to upload. Please try again later");
+                        $("#jumbo").removeAttr("hidden");
+                        //$("#jumbo").show();
+                        //$('#trm').show();
+                        $('#trm').prop("disabled", false);
+                    }
+                }
+            };
+            xhr.send();
+        }
+
+        function uploadFile(file, signedRequest, url, token, fileName) {
+            console.log("Uploding file procedure started");
+            const xhr = new XMLHttpRequest();
+            xhr.open('PUT', signedRequest);
+            xhr.onreadystatechange = () => {
+                if (xhr.readyState === 4) {
+
+                    if (xhr.status === 200) {
+                        console.log("File uploaded well done");
+                        $('#loader').hide();
+                        $("#dumber").text(token);
+                        $("#dumber").show();
+                        var text = "I uploaded '" + fileName + "' on http://printuu.com.\nUse token " + token + " to print yourself a copy, or \nuse this link printuu.com/printme?=" + token;
+                        var zam = encodeURI("whatsapp://send?text=" + text);
+                        $("#app_pic").attr("href", zam);
+                        $("#app_pic").removeAttr("hidden");
+                        $("#info").removeAttr("hidden");
+
+                        $('#trm').attr("hidden", true);
+                        //$("#app_pic").show();
+                        //$('#kliber').show();
+                        //$('#trm').hide();
+
+                        //$('#trm').prop("disabled",false);
+
+                    }
+                    else {
+                        console.log("Error uploading. hawww");
+                        $('#loader').attr("hidden", true);
+                        //$('#loader').hide();
+                        $("#jumbo").text("Sorry, The file failed to upload. Please try again later");
+                        $("#jumbo").removeAttr("hidden");
+                        //$("#jumbo").show();
+                        $('#trm').prop("disabled", false);
+
+                    }
+                }
+
+            };
+            xhr.send(file);
+        }
+
+        // Get the modal
+        var modal = document.getElementById('myModal');
+
+        // Get the button that opens the modal
+        var btn = document.getElementById("info");
+
+        // Get the <span> element that closes the modal
+        var span = document.getElementsByClassName("close")[0];
+
+        // When the user clicks the button, open the modal
+        btn.onclick = function () {
+            modal.style.display = "block";
+        }
+
+        // When the user clicks on <span> (x), close the modal
+        span.onclick = function () {
+            modal.style.display = "none";
+        }
+
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+        //SIDEBAR STARts (pb)
+        function openNav() {
+            document.getElementById("mySidenav").style.width = "250px";
+            document.getElementById("main").style.marginLeft = "250px";
+            document.body.style.backgroundColor = "rgba(0,0,0,0.4)";
+        }
+
+        function closeNav() {
+            document.getElementById("mySidenav").style.width = "0";
+            document.getElementById("main").style.marginLeft = "0";
+            document.body.style.backgroundColor = "white";
+        }
+//SIDEBAR ENds (pb)
+
+
+
+
+    </script>
+</body>
+
+</html>

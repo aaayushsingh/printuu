@@ -1,0 +1,84 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8"></head><body><h1>Printuu</h1>
+<title>Quick print</title>
+<link rel="stylesheet" href="Quick%20print_files/style3.css">
+<script src="Quick%20print_files/jquery.js"></script>
+
+
+  <div id="form-main">
+  <div id="form-div">
+
+
+
+Please input your token
+<p class="email">
+  <input value="1234" name="email" class="validate[required,custom[email]] feedback-input" id="email" placeholder="Enter token " type="text">
+</p>
+
+<div class="submit">
+  <input onclick="exec()" value="Printuu Karo!" id="button-blue" type="submit">
+  <div class="ease"></div>
+</div>
+<div style="" id="show_em">This token does not exist</div>
+<br><br>
+<center><img style="display: none;" src="Quick%20print_files/default.svg" id="loader"></center>
+<br><br>
+<script>
+$('#loader').hide();
+
+function exec()
+{
+
+  var token=document.getElementById('email').value;
+  if (1000<token&&token<=9999&&token.match(/^[0-9]+$/) != null){
+    $('#loader').show();
+    $("#show_em").hide();
+
+    console.log(token);
+    //the function to send request is called in here
+    hitit(token,peas);
+  } else return alert('Enter 4 digit NUMERIC token!');
+}
+function hitit(data,callback)
+{
+var xhr = new XMLHttpRequest();
+xhr.open('POST', `/sendprint`);
+xhr.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+xhr.send("token="+data);
+xhr.onreadystatechange = () => {
+  if(xhr.readyState === 4){
+      if(xhr.status === 200){
+	    console.log("Finally reliable response received");
+	    //var response = JSON.parse(xhr.responseText);
+		//console.log(xhr.responseText);
+		//data has been received here along with the token response.token
+
+        callback(JSON.parse(xhr.responseText));
+      }
+      else{
+	    console.log("Response failed");
+      }
+    }
+  };
+}
+
+function peas(field)
+{
+//this function is called on receiveing the response
+console.log(field);
+$('#loader').hide();
+$("#show_em").show();
+$("#show_em").text(field.message);
+if(field.url!=null){
+
+window.open(field.url,'_blank');
+}
+
+}
+
+</script>
+
+</div>
+
+
+</div></body></html>
