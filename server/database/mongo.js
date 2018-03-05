@@ -30,10 +30,10 @@ MongoClient.connect(url, function (err, client) {
         exports.find = function (data, collection, callback) {
             var collection = db.collection(collection);
             collection.find(data).toArray(function (err, result) {
-                if (err){
+                if (err) {
                     callback(err);
                 }
-                else{
+                else {
                     callback(null, result);
                 }
             });
