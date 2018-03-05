@@ -1,13 +1,12 @@
 {
-  "name": "Printer_project",
-  "description": "Project for amity printer shops",
+  "name": "printuu",
+  "description": "Solution to print and share files easily.",
   "webhook": "https://serene-spire-90092.herokuapp.com/",
   "version": "1.0.0",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit"
   },
-  "refresh": "1/3SX-5npDBz9XBP_J-35eySF9DawIdEChFHbxW_5SI7zmZei1pyyWUeeUL5NC6Ozj",
   "author": "Amity Goons",
   "private": true,
   "license": "ISC",
@@ -18,5 +17,8 @@
     "mongodb": "^3.0.1",
     "node-random": "^1.0.1",
     "request": "^2.83.0"
+  },
+  "devDependencies": {
+    "dotenv": "^5.0.1"
   }
 }

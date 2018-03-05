@@ -1,99 +1,38 @@
-var express = require('express');
-var bodyParser = require('body-parser');
+"use strict";
+
+require("dotenv").config();
+var express = require("express");
+var bodyParser = require("body-parser");
 var random = require("node-random");
-var request = require('request');
-var pack = require('./package.json');
-var aws = require('aws-sdk');
-var MongoClient = require('mongodb').MongoClient;
+var request = require("request");
+var aws = require("aws-sdk");
+var config = require("./config.js");
+var mongo = require("./server/database/mongo.js");
 
 var app = express();
 
 // Process application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
 // Process application/json
 app.use(bodyParser.json());
 
 //static files
-app.use(express.static(__dirname + '/required/'));
+app.use(express.static(__dirname + '/public/'));
 
 //setting up the port
 app.set('port', (process.env.PORT || 8080));
 
 app.listen(app.get('port'), function () {
     console.log('running on port', app.get('port'))
-
 });
 
 var S3_BUCKET = process.env.S3_BUCKET;
 
-//The database essentials
-var url = 'mongodb://jain:motherfathermother@ds133388.mlab.com:33388/printer_store';
-var insert = function () { }
-var ayush_insert = function () { }
-var findus = function () { }
-
-MongoClient.connect(url, function (err, client) {
-    if (err) {
-        console.log('Error connecting to the database');
-        console.log(err);
-    }
-    else {
-        console.log('database connected');
-        var db = client.db("printer_store");
-
-        insert = function (data, callback) {
-            var collection = db.collection('developers');
-            collection.insert(data, function (err1, result) {
-                if (err1) {
-                    callback(err1);
-                }
-                else {
-                    callback(null, 'success');
-                }
-            });
-
-        }
-
-        findus = function (data, callme) {
-            var collection = db.collection('developers');
-            collection.find(data).toArray(function (err, result) {
-                if (err)
-                    callme(err);
-                else
-                    callme(null, result);
-            });
-
-        }
-
-
-        ayush_insert = function (ayushdata) {
-            var collection = db.collection('ls_wale');
-            collection.insert(ayushdata, function (err2, result1) {
-                if (err2) {
-                    console.log(err2);
-
-                }
-                else {
-                    console.log("Data Inserted successfully");
-                }
-            });
-        }
-
-    }
-});
-
-
-var accesstok = "chimp";
-var refresh = pack.refresh;
 
 app.get('/', function (req, res) {
-
     console.log(req.method + " request received at " + req.url);
     res.sendFile(__dirname + '/index.html');
-
-
 });
 
 app.get('/faq', function (req, res) {
@@ -106,11 +45,16 @@ app.get('/faq', function (req, res) {
 app.post('/feedback', function (req, res) {
     console.log(req.method + " request received on " + req.url);
     console.log(req.body);
-    ayush_insert(req.body);
-    res.write("Entry submitted succesfully");
-
-
-    res.end();
+    mongo.insert(req.body, "ls_wale", function (err, resp) {
+        if (err) {
+            res.write("Sorry, could not submit the feedback right now. Please try again later.");
+            res.end();
+        }
+        else {
+            res.write("Entry submitted succesfully");
+            res.end();
+        }
+    });
 });
 
 
@@ -124,10 +68,9 @@ function getToken(callback) {
             console.log(error);
         }
         else {
-            findus({ "token": data }, function (err, result) {
+            mongo.find({ "token": data }, "events", function (err, result) {
                 if (err) {
                     console.log(err);
-
                     callback(err);
                 }
                 else if (result.length == 0) {
@@ -198,19 +141,14 @@ app.post('/todest', function (req, res) {
                         "token": data1,
                         "url": `https://${S3_BUCKET}.s3.amazonaws.com/${prick}`
                     };
-                    insert(base, function (err123, result) {// used to insert values in the database
-                        if (err123) {
-                            console.log("Error code 2789");
-                            console.log(err123);
+                    mongo.insert(base, "developers", function (err, result) {// used to insert values in the database
+                        if (err) {
+                            console.log("ERROR", err);
                         }
                         else {
                             console.log("Values inserted in DB successfully");
-                            //do whatever
                         }
-
                     });
-
-
                 }
             });
 
@@ -380,6 +318,5 @@ function final_print(address, callback) {
 
 app.get('/feedback', function (req, res) {
     console.log(req.method + " request received at " + req.url);
-
     res.sendFile(__dirname + '/feedback.html');
 });
