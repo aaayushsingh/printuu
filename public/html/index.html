@@ -3,7 +3,7 @@
 
 <head>
     <title>Printuu</title>
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <!-- For-Mobile-Apps -->
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -13,7 +13,7 @@
     <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
     <!-- //For-Mobile-Apps -->
     <!-- Style -->
-    <link rel="stylesheet" href="style.css" type="text/css" media="all" />
+    <link rel="stylesheet" href="css/style.css" type="text/css" media="all" />
     <style type="text/css">
         #dumber {
             height: 100%;
@@ -66,9 +66,8 @@
 <body>
     <div class="container">
         <h1>
-            <img src="qp2.png" alt="Printuu">
+            <img src="images/qp2.png" alt="Printuu">
         </h1>
-        <!--adding side bar -->
         <div id="mySidenav" class="sidenav">
             <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
             <a href="/">Upload</a>
@@ -76,12 +75,6 @@
             <a href="/feedback">Feedback</a>
             <a href="/faq">FAQ's</a>
         </div>
-        <!-- just for some time >
-  <div id="main"align="center" class="menu">
-    <span style="font-size:30px;cursor:pointer" onclick="openNav()">&#9758; Menu</span>
-  </div>
-  <!- -adding side bar -->
-
 
         <div class="signin">
             <div class="page" align="center">
@@ -107,10 +100,10 @@
             <div id="forsapp">
                 <span id="dumber" hidden></span>
                 <a id="info" hidden>
-                    <img src="info.png" alt="Info" />
+                    <img src="images/info.png" alt="Info" />
                 </a>
                 <a id="app_pic" hidden>
-                    <img src="wassup.png" alt="Share on WhatsApp" align="right" />
+                    <img src="images/wassup.png" alt="Share on WhatsApp" align="right" />
                 </a>
 
             </div>
@@ -150,7 +143,7 @@
 
             </div>
 
-            <img src="default.svg" id="loader" alt="Loading..." hidden />
+            <img src="images/default.svg" id="loader" alt="Loading..." hidden />
         </div>
     </div>
 
@@ -165,12 +158,6 @@
         <p>Contact: printuu.info@gmail.com </p>
     </div>
     <script>
-        //$("#app_pic").removeAttr("hidden");
-        //$('#loader').hide();
-        //$('#dumber').hide();
-        //$('#jumbo').hide();
-        //$('#kliber').hide();
-        //$("#app_pic").attr("hidden","true");
 
         function alerter() {
             const files = document.getElementById('file-input').files;
@@ -184,13 +171,9 @@
         function bunny() {
             var name = document.getElementById('pname').value;
             var mail = document.getElementById('pemail').value;
-
-            //var mail_dom= mail.split("@")
             const files = document.getElementById('file-input').files;
             const file = files[0];
-  /*  if (files[0].size>){
-        return alert('bhai kitni badi file upload kregaa?? 20MB limit hai.');
-    } else */if (!mail.includes("@") || !mail.includes(".")) {
+            if (!mail.includes("@") || !mail.includes(".")) {
                 return alert('invalid email');
             } else if (file == null) {
                 return alert('Please select a file.');
@@ -200,11 +183,9 @@
                 return alert('select another file');
             }
             else {
-
                 getSignedRequest(file, name, mail);
                 $('#trm').prop("disabled", true);
                 $('#loader').removeAttr("hidden");
-                //$('#loader').show();
             }
 
         }
@@ -219,18 +200,13 @@
                         console.log("Response received");
                         console.log(xhr.responseText);
                         const response = JSON.parse(xhr.responseText);
-
-                        //data has been received here along with the token response.token
                         uploadFile(file, response.signedRequest, response.url, response.token, response.file);
                     }
                     else {
                         console.log("Bad Response received");
                         $('#loader').attr("hidden", true);
-                        //$('#loader').hide();
                         $("#jumbo").text("Sorry, The file failed to upload. Please try again later");
                         $("#jumbo").removeAttr("hidden");
-                        //$("#jumbo").show();
-                        //$('#trm').show();
                         $('#trm').prop("disabled", false);
                     }
                 }
@@ -257,20 +233,12 @@
                         $("#info").removeAttr("hidden");
 
                         $('#trm').attr("hidden", true);
-                        //$("#app_pic").show();
-                        //$('#kliber').show();
-                        //$('#trm').hide();
-
-                        //$('#trm').prop("disabled",false);
-
                     }
                     else {
                         console.log("Error uploading. hawww");
                         $('#loader').attr("hidden", true);
-                        //$('#loader').hide();
                         $("#jumbo").text("Sorry, The file failed to upload. Please try again later");
                         $("#jumbo").removeAttr("hidden");
-                        //$("#jumbo").show();
                         $('#trm').prop("disabled", false);
 
                     }
@@ -305,8 +273,6 @@
                 modal.style.display = "none";
             }
         }
-
-        //SIDEBAR STARts (pb)
         function openNav() {
             document.getElementById("mySidenav").style.width = "250px";
             document.getElementById("main").style.marginLeft = "250px";
@@ -318,11 +284,6 @@
             document.getElementById("main").style.marginLeft = "0";
             document.body.style.backgroundColor = "white";
         }
-//SIDEBAR ENds (pb)
-
-
-
-
     </script>
 </body>
 
